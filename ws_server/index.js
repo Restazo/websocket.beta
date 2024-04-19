@@ -1,12 +1,9 @@
-import { WebSocket, WebSocketServer } from "ws";
+import { WebSocketServer } from "ws";
 import { v4 } from "uuid";
 import visitorRoutes from "./routes/visitorRoutes.js";
 import businessRoutes from "./routes/businessRoutes.js";
 import WSError from "./models/wsError.js";
-import {
-  verifyConnectionId,
-  deleteConnection,
-} from "./helpers/connectionHelpers.js";
+import { deleteConnection } from "./helpers/connectionHelpers.js";
 
 const wss = new WebSocketServer({ port: 3000 });
 
@@ -14,7 +11,6 @@ const visitorRoutesInstance = new visitorRoutes();
 const businessRoutesInstance = new businessRoutes();
 // Use a Map to store connections with a unique identifiers
 const businessConnections = new Map();
-// const visitorConnections = new Map();
 const allConnections = new Map();
 const waiterCalls = new Map();
 
@@ -106,7 +102,6 @@ wss.on("connection", function connection(ws) {
               );
             }
 
-            // Add error handling here
             const result = businessRoutesInstance.initialize(
               business_id,
               connection_id,

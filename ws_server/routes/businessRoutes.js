@@ -27,7 +27,9 @@ class businessRoutes {
       allConnections.set(connection_id, newConnectionFromBusiness);
 
       const tablesThatRequestedWaiter = waiterCalls.get(business_id);
-      return [...tablesThatRequestedWaiter.values()];
+      return tablesThatRequestedWaiter
+        ? [...tablesThatRequestedWaiter.values()]
+        : [];
     } catch (e) {
       console.error(e);
       deleteConnection(connection_id);
